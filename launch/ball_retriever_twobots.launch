@@ -1,0 +1,17 @@
+<!--
+  start node to retrieve balls for two crawbots
+-->
+<launch>
+    <arg name="x" default="0"/>
+    <arg name="y" default="0"/>
+
+    <node pkg="crawbot" name="crawbot_smach1" type="ball_retriever.py" output="screen" args='crawbot_smach1'>
+        <param name="xx" value="$(arg x)" />
+        <param name="yy" value="$(arg y)"/>
+    </node>
+
+    <node pkg="crawbot" name="crawbot_smach2" type="ball_retriever.py" output="screen" args='crawbot_smach2'>
+        <param name="xx" value="$(arg x)" />
+        <param name="yy" value="$(arg y)"/>
+    </node>
+</launch>

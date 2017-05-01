@@ -1,0 +1,408 @@
+<?xml version="1.0" ?>
+<robot name="crawbot">
+    <material name="Red">
+        <color rgba="1.0 0 0 1.0"/>
+    </material>
+    <material name="Green">
+        <color rgba="0 1.0 0 1.0"/>
+    </material>
+    <material name="Blue">
+        <color rgba="0 0 1.0 0.5"/>
+    </material>
+    <material name="Black">
+        <color rgba="0 0 0 1.0"/>
+    </material>
+    <material name="Aqua">
+        <color rgba="0 255 255 1.0"/>
+    </material>
+
+    <!--Gripper-->
+    <joint name="palm_left_finger" type="fixed">
+        <parent link="palm"/>
+        <child link="left_finger"/>
+        <origin rpy="0       0      -0.98539" xyz="-0.00606  0.09393  0"/>
+        <axis xyz="0  0  1"/>
+        <limit effort="0.4" lower="-0.4" upper="0.4" velocity="0.4"/>
+    </joint>
+    <joint name="left_finger_tip" type="revolute">
+        <parent link="left_finger"/>
+        <child link="left_finger_tip"/>
+        <origin rpy="0       0       2.35609" xyz="-0.0109   0.29153  0"/>
+        <axis xyz="0  0  1"/>
+        <limit effort="20" lower="-0.4" upper="0.4" velocity="2"/>
+    </joint>
+    <joint name="palm_right_finger" type="fixed">
+        <parent link="palm"/>
+        <child link="right_finger"/>
+        <origin rpy="0       0       0.98539" xyz="-0.00606 -0.09393  0"/>
+        <axis xyz="0  0  1"/>
+        <limit effort="0.4" lower="-0.4" upper="0.4" velocity="0.4"/>
+    </joint>
+    <joint name="right_finger_tip" type="revolute">
+        <parent link="right_finger"/>
+        <child link="right_finger_tip"/>
+        <origin rpy="0       0       0.78531" xyz="-0.01088 -0.29151  0"/>
+        <axis xyz="0  0  1"/>
+        <limit effort="20" lower="-0.4" upper="0.4" velocity="2"/>
+    </joint>
+
+
+    <joint name="arm_gripper_joint" type="fixed">
+        <parent link="core_link"/>
+        <child link="palm"/>
+        <origin rpy="0  0  3.141592" xyz="-0.1  0    0.2"/>
+        <axis xyz="0  0  0"/>
+        <limit effort="0" lower="0" upper="0" velocity="0"/>
+    </joint>
+
+    <joint name="hokuyo_joint" type="fixed">
+        <parent link="core_link"/>
+        <child link="hokuyo"/>
+        <origin rpy="0  0  0" xyz="0.1    0    0.3"/>
+        <axis xyz="0  0  0"/>
+        <limit effort="0" lower="0" upper="0" velocity="0"/>
+    </joint>
+    <joint name="camera_joint" type="fixed">
+        <parent link="core_link"/>
+        <child link="camera"/>
+        <origin rpy="0  0  0" xyz="0.1  0    0.3"/>
+        <axis xyz="0  0  0"/>
+        <limit effort="0" lower="0" upper="0" velocity="0"/>
+    </joint>
+
+
+    <link name="palm">
+        <inertial>
+            <mass value="0.0001"/>
+            <origin rpy="0  0  0" xyz="0.15  0    0.25"/>
+            <inertia ixx="0.01" ixy="0" ixz="0" iyy="0.01" iyz="0" izz="0.01"/>
+        </inertial>
+        <collision name="collision">
+            <origin rpy="0  0  0" xyz="0  0  0"/>
+            <geometry>
+                <box size="0.02 0.2 0.1"/>
+            </geometry>
+        </collision>
+        <visual name="visual">
+            <origin rpy="0  0  0" xyz="0  0  0"/>
+            <geometry>
+                <box size="0.02 0.2 0.1"/>
+            </geometry>
+        </visual>
+    </link>
+    <!-- -->
+    <link name="left_finger">
+        <inertial>
+            <mass value="0.0001"/>
+            <origin rpy="0  0  0" xyz="0    0.15  0"/>
+            <inertia ixx="0.01" ixy="0" ixz="0" iyy="0.01" iyz="0" izz="0.01"/>
+        </inertial>
+        <collision name="collision">
+            <origin rpy="0  0  0" xyz="0    0.15  0"/>
+            <geometry>
+                <box size="0.02 0.33 0.1"/>
+            </geometry>
+        </collision>
+        <visual name="visual">
+            <origin rpy="0  0  0" xyz="0    0.15  0"/>
+            <geometry>
+                <box size="0.02 0.33 0.1"/>
+            </geometry>
+        </visual>
+    </link>
+    <link name="left_finger_tip">
+        <inertial>
+            <mass value="0.0001"/>
+            <origin rpy="0  0  0" xyz="0   -0.15  0"/>
+            <inertia ixx="0.01" ixy="0" ixz="0" iyy="0.01" iyz="0" izz="0.01"/>
+        </inertial>
+        <collision name="collision">
+            <origin rpy="0  0  0" xyz="0   -0.15  0"/>
+            <geometry>
+                <box size="0.02 0.33 0.1"/>
+            </geometry>
+        </collision>
+        <visual name="visual">
+            <origin rpy="0  0  0" xyz="0   -0.15  0"/>
+            <geometry>
+                <box size="0.02 0.33 0.1"/>
+            </geometry>
+        </visual>
+    </link>
+    <link name="right_finger">
+        <inertial>
+            <mass value="0.0001"/>
+            <origin rpy="0  0  0" xyz="0   -0.15  0"/>
+            <inertia ixx="0.01" ixy="0" ixz="0" iyy="0.01" iyz="0" izz="0.01"/>
+        </inertial>
+        <collision name="collision">
+            <origin rpy="0  0  0" xyz="0   -0.15  0"/>
+            <geometry>
+                <box size="0.02 0.33 0.1"/>
+            </geometry>
+        </collision>
+        <visual name="visual">
+            <origin rpy="0  0  0" xyz="0   -0.15  0"/>
+            <geometry>
+                <box size="0.02 0.33 0.1"/>
+            </geometry>
+        </visual>
+    </link>
+    <link name="right_finger_tip">
+        <inertial>
+            <mass value="0.0001"/>
+            <origin rpy="0  0  0" xyz="0   -0.15  0"/>
+            <inertia ixx="0.01" ixy="0" ixz="0" iyy="0.01" iyz="0" izz="0.01"/>
+        </inertial>
+        <collision name="collision">
+            <origin rpy="0  0  0" xyz="0   -0.15  0"/>
+            <geometry>
+                <box size="0.02 0.33 0.1"/>
+            </geometry>
+        </collision>
+        <visual name="visual">
+            <origin rpy="0  0  0" xyz="0   -0.15  0"/>
+            <geometry>
+                <box size="0.02 0.33 0.1"/>
+            </geometry>
+        </visual>
+    </link>
+
+
+    <!--Base-->
+
+
+    <link name="core_link">
+        <collision name="collision">
+            <origin rpy="0  0  0" xyz="0   0   0.1"/>
+            <geometry>
+                <box size=".2 .2 .1"/>
+            </geometry>
+        </collision>
+        <visual name="visual">
+            <origin rpy="0  0  0" xyz="0    0    0.15"/>
+            <geometry>
+                <mesh filename="package://crawbot/meshes/chassis.dae" scale="0.5 0.5 0.5"/>
+            </geometry>
+        </visual>
+    </link>
+
+    <link name="base_link">
+        <visual>
+            <origin xyz="0 0 0" rpy="0 0 0" />
+            <geometry>
+                <box size="0.001 0.001 0.001" />
+            </geometry>
+        </visual>
+    </link>
+
+    <joint name="base_link_joint" type="fixed">
+        <origin xyz="0.0 0 1.25" rpy="0 0 0" />
+        <parent link="core_link"/>
+        <child link="base_link" />
+    </joint>
+
+    <link name="tail_link">
+        <inertial>
+            <mass value="2"/>
+            <origin rpy="0  0  0" xyz="-0.08   0   0.15"/>
+            <inertia ixx="0" ixy="0" ixz="0" iyy="0" iyz="0" izz="0"/>
+        </inertial>
+        <visual>
+            <origin rpy="0  0  0" xyz="-0.08  0    0.15"/>
+            <geometry>
+                <box size="0.1 0.02 0.02"/>
+            </geometry>
+        </visual>
+    </link>
+
+    <joint name="tail_joint"  type="fixed">
+        <parent link="core_link"/>
+        <child link="tail_link"/>
+        <origin rpy="0 0 0" xyz="0 0 0"/>
+    </joint>
+
+    <link name="hokuyo">
+        <inertial>
+            <mass value="0.1"/>
+            <origin rpy="0  0  0" xyz="0  0  0"/>
+            <inertia ixx="0" ixy="0" ixz="0" iyy="0" iyz="0" izz="0"/>
+        </inertial>
+        <collision name="collision-base">
+            <origin rpy="0  0  0" xyz="0      0     0"/>
+            <geometry>
+                <box size="0.05 0.05 0.041"/>
+            </geometry>
+        </collision>
+        <collision name="collision-top">
+            <origin rpy="0  0  0" xyz="0      0      0"/>
+            <geometry>
+                <cylinder length="0.029" radius="0.021"/>
+            </geometry>
+        </collision>
+        <visual name="visual">
+            <origin rpy="0  0  0" xyz="0  0  0"/>
+            <geometry>
+                <mesh filename="package://crawbot/meshes/hokuyo.dae" scale="1.0 1.0 1.0"/>
+            </geometry>
+        </visual>
+    </link>
+
+    <gazebo reference="hokuyo">
+        <sensor type="gpu_ray" name="head_hokuyo_sensor">
+            <pose>0 0 0 0 0 0</pose>
+            <visualize>true</visualize>
+            <update_rate>60</update_rate>
+            <ray>
+                <scan>
+                    <horizontal>
+                        <samples>720</samples>
+                        <resolution>1</resolution>
+                        <min_angle>-1.570796</min_angle>
+                        <max_angle>1.570796</max_angle>
+                        <!--min_angle>-1.570796</min_angle>
+                        <max_angle>1.570796</max_angle-->
+                    </horizontal>
+                </scan>
+                <range>
+                    <min>0.10</min>
+                    <max>30.0</max>
+                    <resolution>0.01</resolution>
+                </range>
+                <noise>
+                    <type>gaussian</type>
+                    <!-- Noise parameters based on published spec for Hokuyo laser
+                    achieving "+-30mm" accuracy at range < 10m.  A mean of 0.0m and
+                    stddev of 0.01m will put 99.7% of samples within 0.03m of the true
+                    reading. -->
+                    <mean>0.0</mean>
+                    <stddev>0.01</stddev>
+                </noise>
+            </ray>
+            <plugin name="gazebo_ros_head_hokuyo_controller" filename="libgazebo_ros_gpu_laser.so">
+                <topicName>laser/scan</topicName>
+                <frameName>hokuyo</frameName>
+            </plugin>
+        </sensor>
+    </gazebo>
+
+    <link name="camera">
+        <inertial>
+            <mass value="0"/>
+            <origin rpy="0  0  0" xyz="0  0  0"/>
+            <inertia ixx="0" ixy="0" ixz="0" iyy="0" iyz="0" izz="0"/>
+        </inertial>
+        <visual name="visual">
+            <origin rpy="0  0  0" xyz="0  0  0"/>
+            <geometry>
+                <box size="0.02 0.02 0.02"/>
+            </geometry>
+        </visual>
+    </link>
+
+    <gazebo reference="camera">
+        <sensor type="camera" name="camera1">
+            <visualize>true</visualize>
+            <update_rate>30</update_rate>
+            <camera name="head">
+                <horizontal_fov>1.570796</horizontal_fov><!--90 degrees-->
+                <!--horizontal_fov>1.3962634</horizontal_fov-->
+                <image>
+                    <width>800</width>
+                    <height>800</height>
+                    <format>R8G8B8</format>
+                </image>
+                <clip>
+                    <near>0.02</near>
+                    <far>300</far>
+                </clip>
+                <noise>
+                    <type>gaussian</type>
+                    <!-- Noise is sampled independently per pixel on each frame.
+                    That pixel's noise value is added to each of its color
+                    channels, which at that point lie in the range [0,1]. -->
+            </noise>
+        </camera>
+        <plugin name="camera_controller" filename="libgazebo_ros_camera.so">
+            <alwaysOn>true</alwaysOn>
+            <updateRate>60</updateRate>
+            <cameraName>camera</cameraName>
+            <imageTopicName>image_raw</imageTopicName>
+            <cameraInfoTopicName>camera_info</cameraInfoTopicName>
+            <frameName>camera_link</frameName>
+            <hackBaseline>0.07</hackBaseline>
+            <distortionK1>0.0</distortionK1>
+            <distortionK2>0.0</distortionK2>
+            <distortionK3>0.0</distortionK3>
+            <distortionT1>0.0</distortionT1>
+            <distortionT2>0.0</distortionT2>
+        </plugin>
+    </sensor>
+</gazebo>
+
+
+
+<gazebo>
+    <plugin name="gazebo_ros_control" filename="libgazebo_ros_control.so">
+        <robotSimType>gazebo_ros_control/DefaultRobotHWSim</robotSimType>
+    </plugin>
+</gazebo>
+
+<!-- Transmissions -->
+
+<gazebo>
+    <plugin name="object_controller" filename="libgazebo_ros_planar_move.so">
+        <commandTopic>cmd_vel_mux/input/teleop</commandTopic>
+        <odometryTopic>odom</odometryTopic>
+        <odometryFrame>odom</odometryFrame>
+        <odometryRate>60</odometryRate>
+        <updateRate>60</updateRate>
+        <robotBaseFrame>hokuyo</robotBaseFrame>
+    </plugin>
+</gazebo>
+<!--
+<transmission name="tran3">
+    <type>transmission_interface/SimpleTransmission</type>
+    <joint name="palm_left_finger">
+        <hardwareInterface>EffortJointInterface</hardwareInterface>
+    </joint>
+    <actuator name="motor3">
+        <hardwareInterface>EffortJointInterface</hardwareInterface>
+        <mechanicalReduction>1</mechanicalReduction>
+    </actuator>
+</transmission>-->
+
+<transmission name="tran4">
+    <type>transmission_interface/SimpleTransmission</type>
+    <joint name="left_finger_tip">
+        <hardwareInterface>EffortJointInterface</hardwareInterface>
+    </joint>
+    <actuator name="motor4">
+        <hardwareInterface>EffortJointInterface</hardwareInterface>
+        <mechanicalReduction>1</mechanicalReduction>
+    </actuator>
+</transmission>
+<!--
+<transmission name="tran5">
+    <type>transmission_interface/SimpleTransmission</type>
+    <joint name="palm_right_finger">
+        <hardwareInterface>EffortJointInterface</hardwareInterface>
+    </joint>
+    <actuator name="motor5">
+        <hardwareInterface>EffortJointInterface</hardwareInterface>
+        <mechanicalReduction>1</mechanicalReduction>
+    </actuator>
+</transmission>-->
+
+<transmission name="tran6">
+    <type>transmission_interface/SimpleTransmission</type>
+    <joint name="right_finger_tip">
+        <hardwareInterface>EffortJointInterface</hardwareInterface>
+    </joint>
+    <actuator name="motor2">
+        <hardwareInterface>EffortJointInterface</hardwareInterface>
+        <mechanicalReduction>1</mechanicalReduction>
+    </actuator>
+</transmission>
+
+</robot>

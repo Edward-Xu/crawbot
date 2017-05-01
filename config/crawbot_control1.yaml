@@ -1,0 +1,28 @@
+crawbot1:
+  # Publish all joint states -----------------------------------
+  joint_state_controller:
+    type: joint_state_controller/JointStateController
+    publish_rate: 60
+
+  # Position Controllers ---------------------------------------
+
+  palm_left_finger_controller:
+    type: effort_controllers/JointPositionController
+    joint: palm_left_finger
+    pid: {p: 100, i: 0.01, d: 5}
+  left_finger_tip_controller:
+    type: effort_controllers/JointPositionController
+    joint: left_finger_tip
+    pid: {p: 1000, i: 0.1, d: 5}
+  palm_right_finger_controller:
+    type: effort_controllers/JointPositionController
+    joint: palm_right_finger
+    pid: {p: 100, i: 0.01, d: 5}
+  right_finger_tip_controller:
+    type: effort_controllers/JointPositionController
+    joint: right_finger_tip
+    pid: {p: 1000, i: 0.1, d: 5}
+  riser_controller:
+    type: effort_controllers/JointPositionController
+    joint: palm_riser
+    pid: {p: 100, i: 0.01, d: 5}

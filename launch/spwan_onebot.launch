@@ -1,0 +1,36 @@
+<!--
+  spwan one crawbot
+-->
+<launch>
+    <param name="/use_sim_time" value="true" />
+    <arg name="x"   default="0"/>
+    <arg name="y"   default="0"/>
+    <arg name="z"   default="0"/>
+
+    <arg name="world_file"     default="$(find crawbot)/worlds/April20/graduate-scenario-1s"/>
+
+    <include file="$(find gazebo_ros)/launch/empty_world.launch">
+        <arg name="world_name" value="$(arg world_file)"/>
+    </include>
+
+    <param name="robot_description" command="$(find xacro)/xacro.py $(find crawbot)/models/crawbot.urdf" />
+
+    <!-- BEGIN ROBOT 1-->
+    <group ns="crawbot1">
+        <param name="tf_prefix" value="/crawbot1_tf" />
+
+        <include file="$(find crawbot)/launch/singlebot.launch" >
+            <arg name="init_pose" value="-x $(arg x) -y $(arg y) -z $(arg z)" />
+            <arg name="robot_name"  value="crawbot1" />
+        </include>
+
+    </group>
+
+    <rosparam file="$(find crawbot)/config/crawbot_control1.yaml" command="load"/>
+
+    <node name="controller_spawner1" pkg="controller_manager" type="spawner" respawn="false"
+        output="screen" ns="/crawbot1" args="joint_state_controller
+         left_finger_tip_controller  right_finger_tip_controller "/>
+
+
+</launch>

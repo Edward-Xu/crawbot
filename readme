@@ -1,0 +1,27 @@
+Dong Xu
+04-27-17
+
+[files explanation]
+April??   -- test world files
+config    -- config files for robots and map
+launch    -- launch files
+meshes    -- meshes for crawbot
+models    -- crawbot model
+scripts   -- program source in python
+worlds    -- custom world files
+
+[Tests]
+The test worlds used for this project are under April?? and worlds.
+Test case worlds/homemade shows that crawbot is able to pick up balls
+that are alone the wall and in the corner. Other worlds are used for
+general testing. Assertions are placed in the source file to increase
+system's correctness.
+
+[examples]
+one crawbot:
+roslaunch crawbot spwan_onebot.launch world_file:="$path to world file" x:=-2.6 y:=2.6
+roslaunch crawbot ball_retriever_onebot.launch x:=-2.3 y:=2.6
+
+two crawbots:
+roslaunch crawbot spwan_twobots.launch world_file:="$path to world file" x1:=-8 y1:=8.4 x2:=-9 y2:=7.4
+roslaunch crawbot ball_retriever_twobots.launch x:=-9 y:=8
